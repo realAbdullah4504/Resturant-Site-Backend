@@ -1,5 +1,3 @@
-
-
 require("dotenv").config();
 const express = require("express");
 const cors = require("cors");
@@ -10,7 +8,8 @@ const app = express();
 
 //routes
 const usersRouter = require("./src/routes/users.routes");
-const settingsRouter=require("./src/routes/settings.routes");
+const dealsRouter = require("./src/routes/deals.routes");
+const menuRouter = require("./src/routes/menu.routes");
 
 //app
 app.use(express.json());
@@ -22,15 +21,12 @@ app.use(cors());
 const Uri = process.env.ATLAS_URI; //"mongodb://localhost:27017/userDb";
 mongoose.connect(Uri, { useNewUrlParser: true });
 
-
-
 //for the routes users
 app.use("/users", usersRouter);
-app.use("/settings", settingsRouter);
+app.use("/deals", dealsRouter);
+app.use("/menu", menuRouter);
 
 app.listen(process.env.PORT || 5000);
-
- 
 
 // const { MongoClient } = require('mongodb');
 
@@ -63,7 +59,6 @@ app.listen(process.env.PORT || 5000);
 
 // // Call the function to delete all records
 // deleteAllRecords();
-
 
 //'https://ghani-soft.vercel.app/settings/GhaniSoftMainLogo.png'
 //

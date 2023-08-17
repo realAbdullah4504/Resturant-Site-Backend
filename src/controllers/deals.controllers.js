@@ -1,11 +1,11 @@
 const path = require("path");
-const Setting = require("../models/settings.models");
+const Deal = require("../models/deals.models");
 
-const getSettings = async (req, res) => {
+const getDeals = async (req, res) => {
   try{
-    const data = await Setting.find({})
+    const data = await Deal.find({})
     //console.log(data)
-    res.json({settings:data})
+    res.json({deals:data})
   }
   catch
   {
@@ -14,24 +14,24 @@ const getSettings = async (req, res) => {
   
   //res.json("api is running");
 };
-const postSettings=async(req,res)=>{
+const postDeals=async(req,res)=>{
   //console.log(req.body);
   try {
     
-    const setting = new Setting(req.body);
-    await setting.save();
+    const deal = new Deal(req.body);
+    await deal.save();
     res.json({
-      setting:setting,
+      deal,
       status:true});
   } catch (err) {
     res.status(400).json("error posting data");
   }
 }
-const editSettings=async(req,res)=>{
+const editDeals=async(req,res)=>{
   const id=req.params.id;
   //res.json(req.params.id);
-  const updatedSetting=await Setting.findByIdAndUpdate(id,req.body,{new:true})
-  res.json({setting:updatedSetting});
+  const updatedDeal=await Deal.findByIdAndUpdate(id,req.body,{new:true})
+  res.json({Deal:updatedDeal});
  
 }
 
@@ -69,9 +69,9 @@ const postImage =  (req, res) => {
   }
 
   module.exports={
-    getSettings,
+    getDeals,
     postImage,
     getImage,
-    postSettings,
-    editSettings
+    postDeals,
+    editDeals
   }

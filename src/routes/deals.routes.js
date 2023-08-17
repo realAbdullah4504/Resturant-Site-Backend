@@ -1,5 +1,5 @@
 const router = require("express").Router();
-const settings = require("../controllers/settings.controllers");
+const deals = require("../controllers/deals.controllers");
 
 const multer = require("multer");
  const path = require("path");
@@ -16,12 +16,12 @@ const storage = multer.diskStorage({
 const upload = multer({ storage: storage });
 
 
-router.get("/",settings.getSettings);
-router.post('/',settings.postSettings);
-router.patch('/:id',settings.editSettings);
+router.get("/",deals.getDeals);
+router.post('/',deals.postDeals);
+router.patch('/:id',deals.editDeals);
 
-router.post("/image",upload.single('image'),settings.postImage);
+router.post("/image",upload.single('image'),deals.postImage);
 // Define the route to serve images
-router.get("/:imageName",settings.getImage);
+router.get("/:imageName",deals.getImage);
 
 module.exports = router;
