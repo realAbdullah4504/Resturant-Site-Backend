@@ -17,10 +17,11 @@ const upload = multer({ storage: storage });
 
 
 router.get("/",deals.getDeals);
-router.post('/',deals.postDeals);
-router.patch('/:id',deals.editDeals);
+router.post('/',upload.single('image'),deals.postDeals);
+router.patch('/:id',upload.single('image'),deals.editDeals);
+router.delete('/:id',deals.deleteDeals);
 
-router.post("/image",upload.single('image'),deals.postImage);
+// router.post("/image",upload.single('image'),deals.postImage);
 // Define the route to serve images
 router.get("/:imageName",deals.getImage);
 

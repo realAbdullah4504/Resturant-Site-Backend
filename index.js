@@ -7,9 +7,9 @@ const mongoose = require("mongoose");
 const app = express();
 
 //routes
-const usersRouter = require("./src/routes/users.routes");
+// const usersRouter = require("./src/routes/users.routes");
 const dealsRouter = require("./src/routes/deals.routes");
-const menuRouter = require("./src/routes/menu.routes");
+const categoryRouter = require("./src/routes/category.routes");
 
 //app
 app.use(express.json());
@@ -22,9 +22,9 @@ const Uri = process.env.ATLAS_URI; //"mongodb://localhost:27017/userDb";
 mongoose.connect(Uri, { useNewUrlParser: true });
 
 //for the routes users
-app.use("/users", usersRouter);
+// app.use("/users", usersRouter);
 app.use("/deals", dealsRouter);
-app.use("/menu", menuRouter);
+app.use("/category", categoryRouter);
 
 app.listen(process.env.PORT || 5000);
 
