@@ -13,11 +13,17 @@ const getDeals = async (req, res) => {
   //res.json("api is running");
 };
 const postDeals = async (req, res) => {
-  console.log("req", req.body);
+  // console.log("req", req.body);
   // console.log("file", req.file.filename);
-
+  const obj={
+    ...req.body,
+    image: req.file.filename,
+    type:JSON.parse(req.body.type),
+    size:JSON.parse(req.body.size)
+  }
+  // console.log("obj", obj);
   try {
-    const deal = new Deal({ ...req.body, image: req.file.filename });
+    const deal = new Deal(obj);
     await deal.save();
     // const deal=await Deal.insertMany(req.body);
 
@@ -33,20 +39,36 @@ const postDeals = async (req, res) => {
 };
 const editDeals = async (req, res) => {
   const id = req.params.id;
-  const { image, ...dealData } = req.body;
+  const { image, type, size, ...dealData } = req.body;
+  
+  // Parse the JSON strings
+  const parsedType = JSON.parse(type);
+  const parsedSize = JSON.parse(size);
 
-  const updatedFields = { ...dealData };
-  if (req.file) updatedFields.image = req.file.filename;
-  const updatedDeal = await Deal.findByIdAndUpdate(id, updatedFields, {
-    new: true,
-  });
+  const updatedFields = {
+    ...dealData,
+    type: parsedType,
+    size: parsedSize,
+  };
 
-  res.json({ deal: updatedDeal });
+  if (req.file) {
+    updatedFields.image = req.file.filename;
+  }
+  console.log(updatedFields);
 
-  //res.json(req.params.id);
-  // res.json(req.body);
-  // const updatedDeal = await Deal.findByIdAndUpdate(id, req.body, { new: true });
-  // res.json({ Deal: updatedDeal });
+  try {
+    const updatedDeal = await Deal.findByIdAndUpdate(id, updatedFields, {
+      new: true,
+    });
+
+    res.json({
+      message: "Deal updated successfully.",
+      deal: updatedDeal,
+      status: true,
+    });
+  } catch (err) {
+    res.status(400).json(err);
+  }
 };
 
 const deleteDeals = async (req, res) => {

@@ -21,8 +21,23 @@ const dealsSchema = new mongoose.Schema({
   },
   title: { type: String, required: true },
   price: { type: Number, required: true },
-  size: { type: String, enum: ["small", "medium", "large"], required: true },
-  type: { type: String, enum: ["deals", "menu"], required: true },
+  size: {
+    type: Object,
+    enum: [
+      { value: "large", label: "Large" },
+      { value: "medium", label: "Medium" },
+      { value: "small", label: "Small" },
+    ],
+    required: true,
+  },
+  type: {
+    type: Object,
+    enum: [
+      { value: "deals", label: "Deals" },
+      { value: "Menu", label: "Menu" },
+    ],
+    required: true,
+  },
   description: { type: String, required: true },
   image: { type: String, required: true },
 });

@@ -19,7 +19,7 @@ const postCategory = async (req, res) => {
   try {
     const data = new Category(req.body);
     await data.save();
-    // const deal=await Category.insertMany(req.body);
+    // const deal = await Category.insertMany(req.body);
 
     res.status(200).json({
       data,
@@ -60,5 +60,5 @@ module.exports = {
   getCategory,
   postCategory,
   editCategory,
-  deleteCategory,   
+  deleteCategory,
 };
