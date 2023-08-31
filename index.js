@@ -10,6 +10,7 @@ const app = express();
 // const usersRouter = require("./src/routes/users.routes");
 const dealsRouter = require("./src/routes/deals.routes");
 const categoryRouter = require("./src/routes/category.routes");
+const cartRouter=require("./src/routes/cart.routes");
 
 //app
 app.use(express.json());
@@ -25,6 +26,7 @@ mongoose.connect(Uri, { useNewUrlParser: true });
 // app.use("/users", usersRouter);
 app.use("/deals", dealsRouter);
 app.use("/category", categoryRouter);
+app.use("/cart", cartRouter);
 
 app.listen(process.env.PORT || 5000);
 
